@@ -135,11 +135,11 @@ def main(
         seeds=[243, 523],
         gpu = 0, # id of the gpu to run on
         name = 'berry_good_spaghetti', # name of this project, for the output directory
-        rootdir = './dreams',
-        num_steps = 72,  # number of steps between each pair of sampled points
+        rootdir = './outputs/int',
+        num_steps = 30,  # number of steps between each pair of sampled points
         # --------------------------------------
         # args you probably don't want to change
-        num_inference_steps = 50,
+        num_inference_steps = 15,
         guidance_scale = 7.5,
         eta = 0.0,
         width = 512,
@@ -155,7 +155,8 @@ def main(
     os.makedirs(outdir, exist_ok=True)
 
     # # init all of the models and move them to a given GPU
-    pipe = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-3-diffusers", use_auth_token=True)
+    # pipe = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4", revision="fp16", torch_dtype=torch.float16, use_auth_token=True)
+    pipe = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4", use_auth_token=True)
     torch_device = f"cuda:{gpu}"
     pipe.unet.to(torch_device)
     pipe.vae.to(torch_device)
